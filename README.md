@@ -13,3 +13,4 @@ cat api.txt | grep url_params | cut -d ' ' -f 7 |tr , '\n' | tr ] '\n' | tr [ '\
 cat api.txt | grep relative_links | cut -d ' ' -f 7 |tr , '\n' | tr ] '\n' | tr [ '\n' | tr -d '"' | tr -d "'" | sort -u > api_link_finder.txt
 ```
 
+Be creative! Use your own custom built wordlists! You're limited only by your imagination. Good luck out there! \m/
