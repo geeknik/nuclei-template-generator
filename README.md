@@ -10,7 +10,7 @@ Usage:
 To build your own wordlistfile, check out this workflow by our friend [nullenc0de](https://twitter.com/nullenc0de/) and pay special attention to the api_params.txt which gets created on the 3rd line:
 ```
 wget https://gist.githubusercontent.com/nullenc0de/bb16be959686295b3b1caff519cc3e05/raw/2016dc0e692821ec045edd5ae5c0aba5ec9ec3f1/api-linkfinder.yaml
-echo https://stripe.com/docs/api | hakrawler -t 500 -d 10 | nuclei -t ./api-linkfinder.yaml -o api.txt
+echo https://stripe.com/docs/api | hakrawler | nuclei -t ./api-linkfinder.yaml -o api.txt
 cat api.txt | grep url_params | cut -d ' ' -f 7 |tr , '\n' | tr ] '\n' | tr [ '\n' |tr -d '"' | tr -d "'" | sort -u > api_params.txt
 cat api.txt | grep relative_links | cut -d ' ' -f 7 |tr , '\n' | tr ] '\n' | tr [ '\n' | tr -d '"' | tr -d "'" | sort -u > api_link_finder.txt
 ```
