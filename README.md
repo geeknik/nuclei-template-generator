@@ -16,3 +16,14 @@ cat api.txt | grep relative_links | cut -d ' ' -f 7 |tr , '\n' | tr ] '\n' | tr 
 ```
 
 Be creative! Use your own custom built wordlists! You're limited only by your imagination. Good luck out there! \m/
+
+
+# FIXED
+* Generated templates now validate as long as the payloadfile is properly escaped or encoded 🥳
+
+# TODO
+* Add support for Raw, Network and File templates
+* Add `unsafe` option.
+* Add support for multiple matchers
+* Add support for status matchers
+* Better support for multiple payloads
