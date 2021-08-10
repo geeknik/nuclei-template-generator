@@ -27,3 +27,9 @@ Be creative! Use your own custom built wordlists! Play with different payloads! 
 * Add support for multiple matchers
 * Add support for status matchers
 * Better support for multiple payloads
+* Add error handling
+
+# Disclaimer
+* You agree, by downloading this software, to use it at your own risk and to only use it for educational purposes. 
+
+Please open an issue if you encounter a bug, have a suggestion, comment, or idea. Feel free to open a pull request if you want to fix a bug or make an improvement of your own. \m/
