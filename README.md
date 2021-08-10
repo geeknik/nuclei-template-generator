@@ -17,6 +17,9 @@ Be creative! Use your own custom built wordlists! Play with different payloads! 
 # FIXED
 * Generated templates now validate as long as the payloadfile is properly escaped or encoded 🥳
 
+# KNOWN ISSUES
+* payloadfile can only contain one payload
+
 # TODO
 * Add support for Raw, Network and File templates
 * Add `unsafe` option.
@@ -24,7 +27,6 @@ Be creative! Use your own custom built wordlists! Play with different payloads! 
 * Add support for status matchers
 * Better support for multiple payloads
 * Add error handling
-
 
 
 Please open an issue if you encounter a bug, have a suggestion, comment, or idea. Feel free to open a pull request if you want to fix a bug or make an improvement of your own. \m/
