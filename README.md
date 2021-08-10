@@ -25,7 +25,10 @@ Be creative! Use your own custom built wordlists! Play with different payloads! 
 * Better support for multiple payloads
 * Add error handling
 
-# Disclaimer
-* You agree, by downloading this software, to use it at your own risk and to only use it for educational purposes. 
+
 
 Please open an issue if you encounter a bug, have a suggestion, comment, or idea. Feel free to open a pull request if you want to fix a bug or make an improvement of your own. \m/
+
+# Disclaimer
+* You agree, by downloading this software, to use it at your own risk and to only use it for educational purposes. 
+* This project is not affiliated with, nor endorsed by, [Project Discovery](https://github.com/projectdiscovery).
