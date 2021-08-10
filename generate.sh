@@ -6,7 +6,6 @@ if [[ -z ${1} || -z ${2} ]]; then
     echo "Usage: generate.sh wordlistfile payloadfile > template_name.yaml"
     exit 1;
 fi
-template_Payload=$(cat $2)
     while [ -z "${template_Id}" ]; do
        read -p 'Template ID: ' template_Id
     done
@@ -31,6 +30,7 @@ template_Payload=$(cat $2)
     while [ -z "${template_Method}" ]; do
        read -p 'Template Method (GET/POST): ' template_Method
     done
+template_Payload=$(cat $2)
 template_Baseurl=$(sed -e 's/^/       - "{{BaseURL}}\//' $1 > /tmp/template_TempFile_0;
                    sed -e 's/^/      /' /tmp/template_TempFile_0 > /tmp/template_TempFile_1;
                    cat /tmp/template_TempFile_1 | while read line; do echo '      '${line}${template_Payload}\"; done
