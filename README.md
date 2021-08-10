@@ -1,7 +1,7 @@
 # Semi-automatic nuclei template generator
 
 Usage:
-`./generator.sh wordlistfile payloadfile > template_name.yaml && nuclei -t template_name.yaml -validate`
+`./generate.sh wordlistfile payloadfile > template_name.yaml && nuclei -t template_name.yaml -validate`
 
 To build your own wordlistfile, check out this workflow by our friend [nullenc0de](https://twitter.com/nullenc0de/status/1423973855941509124) and pay special attention to the api_params.txt which gets created on the 3rd line:
 ```
