@@ -1,9 +1,5 @@
-Please note that generator.sh is not quite ready for public consumption. A brave few have been chosen as guinea pigs to beta test and help with bug fixes. Stay tuned.
+# Semi-automatic nuclei template generator
 
-# nuclei-template-tools
-Tools that make creating templates for nuclei even easier.
-
-# Automatic nuclei template generator
 Usage:
 `./generator.sh wordlistfile payloadfile`
 
