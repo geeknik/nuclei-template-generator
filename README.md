@@ -18,7 +18,10 @@ Be creative! Use your own custom built wordlists! Play with different payloads! 
 * Generated templates now validate as long as the payloadfile is properly escaped or encoded 🥳
 
 # KNOWN ISSUES
-* payloadfile can only contain one payload
+* payloadfile can only contain one payload 
+    * this isn't really true, your payloadfile can contain more than one payload,
+      however it won't be parsed and passed along to the server in the way you're 
+      expecting.
 
 # TODO
 * Add support for Raw, Network and File templates
