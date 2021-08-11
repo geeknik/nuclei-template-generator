@@ -3,7 +3,7 @@
 # https://geeknik-labs.com/
 # good luck out there! \m/
 if [[ -z ${1} || -z ${2} ]]; then
-    echo "Usage: /generate.sh wordlistfile payloadfile > template_name.yaml"
+    echo "Usage: generate.sh wordlistfile payloadfile > template_name.yaml"
     exit 1;
 fi
     while [ -z "${template_Id}" ]; do
