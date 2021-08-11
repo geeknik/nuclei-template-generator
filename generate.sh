@@ -3,7 +3,7 @@
 # https://geeknik-labs.com/
 # good luck out there! \m/
 if [[ -z ${1} || -z ${2} ]]; then
-    echo "Usage: generate.sh wordlistfile payloadfile > template_name.yaml"
+    echo "Usage: "$PWD"/generate.sh wordlistfile payloadfile"
     exit 1;
 fi
     while [ -z "${template_Id}" ]; do
@@ -21,14 +21,18 @@ fi
     while [ -z "${template_Author}" ]; do
        read -p 'Template Author: ' template_Author
     done
-    while [ -z "${template_Severity}" ]; do
-       read -p 'Template Severity: ' template_Severity
+    declare -a severity_Array=( "info" "low" "medium" "high" "critical" )
+    read -p 'Template Severity: ' template_Severity
+    while [[ ! "${severity_Array[@]}" =~ "${template_Severity}" ]]; do
+        read -p 'Template Severity: ' template_Severity
     done
     while [ -z "${template_Tags}" ]; do
        read -p 'Template Tags: ' template_Tags
     done
-    while [ -z "${template_Method}" ]; do
-       read -p 'Template Method (GET/POST): ' template_Method
+    declare -a method_Array=( "GET" "POST" )
+    read -p 'Template Method (GET/POST): ' template_Method
+    while [[ ! "${method_Array[@]}" =~ "${template_Method}" ]]; do
+        read -p 'Template Method (GET/POST): ' template_Method
     done
 template_Payload=$(cat $2)
 template_Baseurl=$(sed -e 's/^/       - "{{BaseURL}}\//' $1 > /tmp/template_TempFile_0;
@@ -39,16 +43,20 @@ template_Baseurl=$(sed -e 's/^/       - "{{BaseURL}}\//' $1 > /tmp/template_Temp
     while [ -z "${template_Matchers_Condition}" ]; do
        read -p 'Template Matchers Condition (and/or): ' template_Matchers_Condition
     done
-    while [ -z "${template_Matchers_Type}" ]; do
-       read -p 'Template Matchers Type (regex/word): ' template_Matchers_Type
+    declare -a type_Array=( "regex" "word" )
+    read -p 'Template Matchers Type (regex/word): ' template_Matchers_Type
+    while [[ ! "${type_Array[@]}" =~ "${template_Matchers_Type}" ]]; do
+        read -p 'Template Matchers Type (regex/word): ' template_Matchers_Type
     done
     if [ "$template_Matchers_Type" = "word" ]; then
         matchers_Type=words
     else
         matchers_Type=regex
     fi
-    while [ -z "${template_Matchers_Part}" ]; do
-       read -p 'Template Matchers Part (body/header): ' template_Matchers_Part
+    declare -a part_Array=( "body" "header" )
+    read -p 'Template Matchers Part (body/header): ' template_Matchers_Part
+    while [[ ! "${part_Array[@]}" =~ "${template_Matchers_Part}" ]]; do
+        read -p 'Template Matchers Part (body/header): ' template_Matchers_Part
     done
     while [ -z "${template_Matchers_Words}" ]; do
        read -p 'Template '$matchers_Type' Matchers: ' template_Matchers_Words
