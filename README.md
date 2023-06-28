@@ -13,6 +13,7 @@ cat api.txt | grep relative_links | cut -d ' ' -f 7 |tr , '\n' | tr ] '\n' | tr 
 
 Be creative! Use your own custom built wordlists! Play with different payloads! You're limited only by your imagination. Good luck out there! \m/
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/S6S1MHNPY) 
 
 # FIXED
 * Generated templates now validate as long as the payloadfile is properly escaped or encoded 🥳
