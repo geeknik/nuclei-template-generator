@@ -15,23 +15,20 @@ Be creative! Use your own custom built wordlists! Play with different payloads! 
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/S6S1MHNPY) 
 
-# FIXED
-* Generated templates now validate as long as the payloadfile is properly escaped or encoded 🥳
+# FIXED 🥳 (in the WIP Python script)
+* Generated templates now validate as long as the payloadfile is properly escaped or encoded 
+* payloadfile supports more than one payload
+* Added support for Raw, Network and File templates
+* Added `unsafe` option.
+* Added support for multiple matchers
+* Added support for status matchers
+* Added better error handling
 
-# KNOWN ISSUES
-* payloadfile can only contain one payload 
-    * this isn't really true, your payloadfile can contain more than one payload,
-      however it won't be parsed and passed along to the server in the way you're 
-      expecting.
+# KNOWN ISSUES 🤒 (in the WIP Python script)
+* None!
 
-# TODO
-* Add support for Raw, Network and File templates
-* Add `unsafe` option.
-* Add support for multiple matchers
-* Add support for status matchers
-* Better support for multiple payloads
-* Add error handling
-
+# TODO 🔨 (in the WIP Python script)
+* Missing something? Tell us!
 
 Please open an issue if you encounter a bug, have a suggestion, comment, or idea. Feel free to open a pull request if you want to fix a bug or make an improvement of your own. \m/
 
