@@ -1,88 +1,75 @@
 #!/bin/bash
-# written by geeknik
-# https://geeknik-labs.com/
-# good luck out there! \m/
-if [[ -z ${1} || -z ${2} ]]; then
-    echo "Usage: generate.sh wordlistfile payloadfile > template_name.yaml"
-    exit 1;
+
+function prompt_until_valid {
+    local varname=$1
+    local prompt=$2
+    local valid_values=$3
+
+    while [[ -z ${!varname} || ( -n "$valid_values" && ! " ${valid_values[*]} " =~ " ${!varname} " ) ]]; do
+        read -p "$prompt" $varname
+    done
+}
+
+# Check command line arguments
+if [[ -z $1 || -z $2 ]]; then
+    printf "Usage: generate.sh wordlistfile payloadfile > template_name.yaml\n"
+    exit 1
 fi
-    while [ -z "${template_Id}" ]; do
-       read -p 'Template ID: ' template_Id
-    done
-    while [ -z "${template_Name}" ]; do
-       read -p 'Template Name: ' template_Name
-    done
-    while [ -z "${template_Description}" ]; do
-       read -p 'Template Description: ' template_Description
-    done
-    while [ -z "${template_Reference}" ]; do
-       read -p 'Template Reference: ' template_Reference
-    done
-    while [ -z "${template_Author}" ]; do
-       read -p 'Template Author: ' template_Author
-    done
-    declare -a severity_Array=( "info" "low" "medium" "high" "critical" )
-    read -p 'Template Severity: ' template_Severity
-    while [[ ! "${severity_Array[@]}" =~ "${template_Severity}" ]]; do
-        read -p 'Template Severity: ' template_Severity
-    done
-    while [ -z "${template_Tags}" ]; do
-       read -p 'Template Tags: ' template_Tags
-    done
-    declare -a method_Array=( "GET" "POST" )
-    read -p 'Template Method (GET/POST): ' template_Method
-    while [[ ! "${method_Array[@]}" =~ "${template_Method}" ]]; do
-        read -p 'Template Method (GET/POST): ' template_Method
-    done
-template_Payload=$(cat $2)
-template_Baseurl=$(sed -e 's/^/       - "{{BaseURL}}\//' $1 > /tmp/template_TempFile_0;
-                   sed -e 's/^/      /' /tmp/template_TempFile_0 > /tmp/template_TempFile_1;
-                   cat /tmp/template_TempFile_1 | while read line; do echo '      '${line}${template_Payload}\"; done
-                   rm /tmp/template_TempFile_*;
-                   )
-    while [ -z "${template_Matchers_Condition}" ]; do
-       read -p 'Template Matchers Condition (and/or): ' template_Matchers_Condition
-    done
-    declare -a type_Array=( "regex" "word" )
-    read -p 'Template Matchers Type (regex/word): ' template_Matchers_Type
-    while [[ ! "${type_Array[@]}" =~ "${template_Matchers_Type}" ]]; do
-        read -p 'Template Matchers Type (regex/word): ' template_Matchers_Type
-    done
-    if [ "$template_Matchers_Type" = "word" ]; then
-        matchers_Type=words
-    else
-        matchers_Type=regex
+
+# Check files
+for file in "$1" "$2"; do
+    if [[ ! -r $file ]]; then
+        printf "Error: File '%s' not found or not readable\n" "$file"
+        exit 1
     fi
-    declare -a part_Array=( "body" "header" )
-    read -p 'Template Matchers Part (body/header): ' template_Matchers_Part
-    while [[ ! "${part_Array[@]}" =~ "${template_Matchers_Part}" ]]; do
-        read -p 'Template Matchers Part (body/header): ' template_Matchers_Part
-    done
-    while [ -z "${template_Matchers_Words}" ]; do
-       read -p 'Template '$matchers_Type' Matchers: ' template_Matchers_Words
-    done
-#basic nuclei template
+done
+
+# Prompt for template details
+prompt_until_valid template_id 'Template ID: '
+prompt_until_valid template_name 'Template Name: '
+prompt_until_valid template_description 'Template Description: '
+prompt_until_valid template_reference 'Template Reference: '
+prompt_until_valid template_author 'Template Author: '
+prompt_until_valid template_severity 'Template Severity: ' 'info low medium high critical'
+prompt_until_valid template_tags 'Template Tags: '
+prompt_until_valid template_method 'Template Method (GET/POST): ' 'GET POST'
+
+# Prepare payload and base URL
+template_payload=$(cat "$2")
+tempfile=$(mktemp)
+sed -e 's/^/       - "{{BaseURL}}\//' "$1" > "$tempfile"
+sed -e 's/^/      /' "$tempfile" > "$tempfile"
+template_baseurl=$(awk -v tp="$template_payload" '{print "      " $0 tp "\""}' "$tempfile")
+rm "$tempfile"
+
+# Prompt for matchers details
+prompt_until_valid template_matchers_condition 'Template Matchers Condition (and/or): ' 'and or'
+prompt_until_valid template_matchers_type 'Template Matchers Type (regex/word): ' 'regex word'
+prompt_until_valid template_matchers_part 'Template Matchers Part (body/header): ' 'body header'
+prompt_until_valid template_matchers_words 'Template '"$template_matchers_type"' Matchers: '
+
+# Output template
 cat << EOF
-id: $template_Id
+id: $template_id
 
 info:
-  name: $template_Name
-  description: $template_Description
+  name: $template_name
+  description: $template_description
   reference:
-    - $template_Reference
-  author: $template_Author
-  severity: $template_Severity
-  tags: $template_Tags
+    - $template_reference
+  author: $template_author
+  severity: $template_severity
+  tags: $template_tags
 
 requests:
-  - method: $template_Method
+  - method: $template_method
     path:
-${template_Baseurl}
+$template_baseurl
 
-    matchers-condition: $template_Matchers_Condition
+    matchers-condition: $template_matchers_condition
     matchers:
-      - type: $template_Matchers_Type
-        part: $template_Matchers_Part
-        $matchers_Type:
-          - '$template_Matchers_Words'
+      - type: $template_matchers_type
+        part: $template_matchers_part
+        ${template_matchers_type}s:
+          - '$template_matchers_words'
 EOF
