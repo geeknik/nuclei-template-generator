@@ -1,5 +1,7 @@
 # Semi-automatic nuclei template generator
 
+NOTE: The bash script is superceded by the Python script and will no longer be updated.
+
 Usage:
 `./generate.sh wordlistfile payloadfile > template_name.yaml && nuclei -t template_name.yaml -validate`
 
